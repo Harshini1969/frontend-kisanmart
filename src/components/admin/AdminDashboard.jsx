@@ -1,8 +1,14 @@
 import React from 'react'
+import Sidebar from './Sidebar'
+
 
 function Admindashboard() {
   return (
-    <div>Admindashboard</div>
+    <div>
+      {/* <h1> Admindashboard </h1> */}
+
+      <Sidebar/>
+    </div>
   )
 }
 

@@ -1,6 +1,8 @@
 import React from "react";
 import { Box, Typography, Card, CardContent, Button, Grid } from "@mui/material";
 
+function Products() {
+
 const productData = [
   { id: 1, name: "Rice", price: 60, unit: "kg", image: "/Ricebag.jpg" },
   { id: 2, name: "Milk", price: 28, unit: "liter", image: "/milk.jpg" },
@@ -20,11 +22,10 @@ const productData = [
   { id: 16, name: "Banana", price: 70, unit: "kg", image: "/banana.jpg" },
 ];
 
-function Products() {
   const cardHeight = 320;
   const cardWidth = 250;
 
-  const productCards = productData.map((item) => (
+  const productCards = productData.map((item,ind) => (
     <Grid item key={item.id}>
       <Card
         sx={{

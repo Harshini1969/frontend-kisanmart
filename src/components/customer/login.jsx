@@ -66,7 +66,14 @@ function Login() {
   };
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+       <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "500px",
+          }}
+        >
       <Card sx={{ width: 400, padding: 2 }}>
         <CardContent>
           <Typography variant="h4" textAlign="center" gutterBottom>
