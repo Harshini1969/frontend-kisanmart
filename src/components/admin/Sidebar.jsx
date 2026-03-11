@@ -18,11 +18,12 @@ const menuItems = [
   { text: "Orders", icon: <ShoppingCartIcon /> },
   { text: "Customers", icon: <PeopleIcon /> },
   { text: "Reports", icon: <BarChartIcon /> },
-  { text: "Settings", icon: <SettingsIcon /> }
+  { text: "Settings", icon: <SettingsIcon /> },
+  { text: "Logout", icon: <LogoutIcon /> }
+
 ];
 
-
-  let menuList = menuItems.map((item, index) => (
+let menuList = menuItems.map((item, index) => (
     <Box
       key={index}
       sx={{
@@ -50,7 +51,7 @@ const menuItems = [
     <Box
       sx={{
         width: 220,
-        height: "100vh",
+        // height: 700,
         background:" #2e4d21",
         color: "white",
         padding: 3,
@@ -64,24 +65,7 @@ const menuItems = [
       <Typography variant="h5" fontWeight="bold" mb={4}>
         Kisan Mart
       </Typography>
-
            {menuList}
-      {/* Logout */}
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 2,
-          padding: 2,
-          cursor: "pointer",
-        }}
-      >
-        <LogoutIcon sx={{ color: "yellow" }} />
-
-        <Typography>
-          Logout
-        </Typography>
-      </Box>
     </Box>
   );
 }

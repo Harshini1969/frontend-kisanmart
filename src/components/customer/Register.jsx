@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import {TextField,Button,Typography,Box,Card,CardContent,Link,Snackbar,Alert,} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Appbar from "../LandingPage/AppBar";
 
 function Register() {
   const BASE_URL = process.env.REACT_APP_BE_API_URL;
@@ -65,7 +66,15 @@ function Register() {
   }
 
   return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+    <Box>
+      <Appbar/>
+
+      <Box display="flex"
+       justifyContent="center" 
+       alignItems="center"
+       height="100vh"
+       
+       >
       <Card sx={{ width: 420, padding: 2 }}>
         <CardContent>
           <Typography variant="h4" textAlign="center" gutterBottom>
@@ -149,6 +158,7 @@ function Register() {
         </Alert>
       </Snackbar>
     </Box>
+  </Box>
   );
 }
 

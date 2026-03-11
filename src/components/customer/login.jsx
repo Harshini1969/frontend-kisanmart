@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import {TextField,Button,Typography,Box,Card,CardContent,Link,Snackbar,Alert,} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Appbar from "../LandingPage/AppBar";
 
 function Login() {
   const BASE_URL = process.env.REACT_APP_BE_API_URL;
@@ -64,9 +65,11 @@ function Login() {
       setPassword("");
     }
   };
-
-  return (
-       <Box
+             
+  return (  
+     <Box>
+      <Appbar/>
+        <Box
           sx={{
             display: "flex",
             justifyContent: "center",
@@ -131,7 +134,8 @@ function Login() {
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </Box>
+     </Box>
+   </Box>
   );
 }
 

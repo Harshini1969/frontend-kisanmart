@@ -4,14 +4,13 @@ import Register from "./components/customer/Register";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import CustomerDashboard from "./components/customer/CustomerDashboard";
 import LandingPage from "./components/LandingPage/LandingPage";
-import AppBar from "./components/LandingPage/AppBar";
 
 function App() {
   return (
     <div className="App">
 
       <BrowserRouter>
-      <AppBar/>
+    
         <Routes>
 
           <Route path="/" element={<LandingPage/>} />
