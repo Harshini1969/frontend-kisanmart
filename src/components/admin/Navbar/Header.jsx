@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./Header.css";
+import styles from "./Header.module.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import Button from "@mui/material/Button";
@@ -47,7 +47,9 @@ function Header() {
               sx={{ fontSize: "1.5rem" }}
             />
 
-            <Button className={styles.logoutBtn}>
+            <Button className={styles.logoutBtn}
+             sx={{ color: "#ed1f1c" }}
+             >
               Logout
             </Button>
           </div>

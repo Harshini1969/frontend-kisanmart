@@ -3,19 +3,20 @@
   justify-content:space-between;
   align-items:center;
   box-shadow:0px 0px 4px rgba(160,160,160);
- padding:0px 20px;
- position: relative;
+  padding:0px 20px;
+  position: relative;
+  margin:20px;
+  border-radius: 20px;
 }
 
 .logoContainer{
   display:flex;
-  /* align-items:center; */
+  align-items:center; 
   gap:5px;
 }
 
 .logo{
   width:60px;
-  
 }
 
 .logoContainer h1{
@@ -29,6 +30,7 @@
   align-items:center;
   gap:6px;
   font-weight:500;
+  cursor:pointer;
 }
 
 .circle{
@@ -42,15 +44,16 @@
   font-weight:bold;
   color:#333;
 }
-
 .dropdownContainer{
-  width:220px;
-  border-radius:12px;
+  width:250px;             
+  border-radius:10px;
   box-shadow:0px 4px 12px rgba(0,0,0,0.15);
   overflow:hidden;
-   position: absolute;
+  position:absolute;
   top:90%;
-  right:30px
+  right:30px;
+  background:white;
+  font-size:16px;         
 }
 
 .line{
@@ -60,20 +63,15 @@
 }
 
 .logoutContainer{
-  display:flex;
+  display:flex;   
   align-items:center;
   gap:5px;
-  padding:12px;
-  color:#e53935;
- 
+  padding:8px 12px;
+  color:#eb130f;
+  font-size:13px;
+  border-radius:6px;            
 }
 
 .logoutContainer:hover{
-  background:rgb(243,247,247);
-}
-
-.logoutBtn{
-  color:#e53935 !important;
-  text-transform:none !important;
-  font-weight:500 !important;
+  background:rgb(235, 173, 156);
 }
