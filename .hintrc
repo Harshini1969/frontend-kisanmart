@@ -7,7 +7,11 @@
       "default",
       {
         "ignore": [
-          "backdrop-filter"
+          "backdrop-filter",
+          "scroll-behavior",
+          "scroll-behavior: smooth",
+          "scrollbar-width",
+          "scrollbar-width: none"
         ]
       }
     ]

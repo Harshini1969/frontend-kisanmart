@@ -1,6 +1,6 @@
 import React from 'react'
-import Sidebar from './Sidebar'
 import Header from './Navbar/Header'
+import AdminSidebar from './Navbar/AdminSidebar'
 
 
 function Admindashboard() {
@@ -8,7 +8,7 @@ function Admindashboard() {
     <div>
       {/* <h1> Admindashboard </h1> */}
        <Header/>
-      <Sidebar/>
+      <AdminSidebar/>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import Register from "./components/customer/Register";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import CustomerDashboard from "./components/customer/CustomerDashboard";
 import LandingPage from "./components/LandingPage/LandingPage";
+import "./App.css"
 
 function App() {
   return (
