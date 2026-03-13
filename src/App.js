@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./components/customer/login";
-import Register from "./components/customer/Register";
+import Login from "./components/SignUp/login";
+import Register from "./components/SignUp/Register";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import CustomerDashboard from "./components/customer/CustomerDashboard";
 import LandingPage from "./components/LandingPage/LandingPage";
@@ -10,16 +10,13 @@ function App() {
   return (
     <div className="App">
 
-      <BrowserRouter>
-    
+      <BrowserRouter>   
         <Routes>
-
           <Route path="/" element={<LandingPage/>} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/adminDashboard" element={<AdminDashboard />} />
           <Route path="/customerDashboard" element={<CustomerDashboard />} />
-
         </Routes>
       </BrowserRouter>
 
