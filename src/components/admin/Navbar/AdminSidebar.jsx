@@ -38,7 +38,10 @@ function AdminSidebar() {
     }}
   >
     {item.icon}
-    {isMenuclose ? "" : <p>{item.name}</p>}
+      {isMenuclose ? ""
+      : 
+      <p>{item.name}</p>
+      }
   </div>
 ));
   function handleMenu(){
@@ -49,6 +52,8 @@ function AdminSidebar() {
     setisMenuclose(true);
   }
   return (
+  <div className={styles.layout}>  
+
     <div
       className={styles.sidebar}
       style={{
@@ -67,14 +72,11 @@ function AdminSidebar() {
         style={{
           transform:isMenuclose?"rotate(180deg)":""
         }}
-        
         >
           <KeyboardDoubleArrowLeftIcon/>
         </div>
-        {isMenuclose ? "" 
-          : 
-          <h2>Kisan Mart</h2>
-        }
+
+        {isMenuclose ? "" : <h2>Kisan Mart</h2>}
       </div>
 
       {/* Menu */}
@@ -99,8 +101,18 @@ function AdminSidebar() {
         <LogoutIcon />
         {isMenuclose ? "" : <span>Logout</span>}
       </div>
+
     </div>
-  );
+
+    {/* CONTENT AREA  */}
+    <div className={styles.content}>
+      <p>
+       Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam nulla ipsam ad architecto, vel error dolores. Quidem itaque, in veniam quas fugit nihil exercitationem perferendis aperiam, sint, reiciendis rerum.
+      </p>
+    </div>
+
+  </div>
+);
 }
 
 export default AdminSidebar;

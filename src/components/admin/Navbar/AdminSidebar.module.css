@@ -62,3 +62,11 @@
   padding:24px 38px;   
   cursor:pointer;
 }
+.layout{
+  display: flex;
+}
+.content{
+  flex: 1;
+  padding: 20px;
+  background: #f5f5f5;
+}
