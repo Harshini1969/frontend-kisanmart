@@ -11,7 +11,8 @@
           "scroll-behavior",
           "scroll-behavior: smooth",
           "scrollbar-width",
-          "scrollbar-width: none"
+          "scrollbar-width: none",
+          "position: sticky"
         ]
       }
     ]

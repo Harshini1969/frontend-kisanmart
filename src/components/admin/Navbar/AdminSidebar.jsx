@@ -11,39 +11,39 @@ import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Outlet, useNavigate } from "react-router-dom";
 
 function AdminSidebar() {
 
   const menuData = [
-    { id: 1, name: "Dashboard", icon: <DashboardIcon /> },
+    { id: 1, name: "Dashboard", icon: <DashboardIcon />, path: "/adminDashboard" },
     { id: 2, name: "Products", icon: <Inventory2OutlinedIcon /> },
     { id: 3, name: "Orders", icon: <ShoppingCartOutlinedIcon /> },
-    { id: 4, name: "Customers", icon: <PeopleOutlineIcon /> },
+    { id: 4, name: "Customers", icon: <PeopleOutlineIcon />, path: "/admin/Customer" },
     { id: 5, name: "Farmers", icon: <AgricultureOutlinedIcon /> },
     { id: 6, name: "Promotions", icon: <LocalOfferOutlinedIcon /> },
     { id: 7, name: "Reports", icon: <AssessmentOutlinedIcon /> },
     { id: 8, name: "Payments", icon: <PaymentsOutlinedIcon /> },
     { id: 9, name: "Settings", icon: <SettingsOutlinedIcon /> }
   ];
-  
+
   const [isMenuclose, setisMenuclose] = useState(false);
+  const navigate = useNavigate();
 
+  const menuItems = menuData.map((item,ind)=>(
+    <div
+      key={item.id}
+      className={styles.menuItem}
+      onClick={() => item.path && navigate(item.path)}
+      style={{
+        justifyContent: isMenuclose ? "center" : ""
+      }}
+    >
+      {item.icon}
+      {isMenuclose ? "" : <p>{item.name}</p>}
+    </div>
+  ));
 
- const menuItems = menuData.map((item) => (
-  <div
-    key={item.id}
-    className={styles.menuItem}
-    style={{
-      justifyContent: isMenuclose ? "center" : ""
-    }}
-  >
-    {item.icon}
-      {isMenuclose ? ""
-      : 
-      <p>{item.name}</p>
-      }
-  </div>
-));
   function handleMenu(){
     if(isMenuclose===true){
       setisMenuclose(false);
@@ -51,6 +51,7 @@ function AdminSidebar() {
     }
     setisMenuclose(true);
   }
+
   return (
   <div className={styles.layout}>  
 
@@ -61,7 +62,6 @@ function AdminSidebar() {
       }}
     >
 
-      {/* Header */}
       <div className={styles.header}
         style={{
         justifyContent: isMenuclose ? "center" : ""
@@ -79,7 +79,6 @@ function AdminSidebar() {
         {isMenuclose ? "" : <h2>Kisan Mart</h2>}
       </div>
 
-      {/* Menu */}
       <div
           className={styles.menuContainer}
           style={{
@@ -88,11 +87,9 @@ function AdminSidebar() {
         >
           {menuItems}
       </div>
-      
-      {/* Divider */}
+
       <div className={styles.line}></div>
 
-      {/* Logout */}
       <div className={styles.logout}
           style={{
          justifyContent: isMenuclose ? "center" : "flex-start"
@@ -104,11 +101,9 @@ function AdminSidebar() {
 
     </div>
 
-    {/* CONTENT AREA  */}
+    {/* CONTENT AREA */}
     <div className={styles.content}>
-      <p>
-       Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam nulla ipsam ad architecto, vel error dolores. Quidem itaque, in veniam quas fugit nihil exercitationem perferendis aperiam, sint, reiciendis rerum.
-      </p>
+      <Outlet />
     </div>
 
   </div>
