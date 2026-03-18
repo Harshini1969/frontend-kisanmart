@@ -13,12 +13,14 @@ import RequestQuoteOutlinedIcon from "@mui/icons-material/RequestQuoteOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
+import { Outlet ,useNavigate} from "react-router-dom";
+
 
 function CustomerSidebar() {
 
 const menuData = [
-  { id: 1, name: "Dashboard", icon: <DashboardIcon /> },
-  { id: 2, name: "Products", icon: <Inventory2OutlinedIcon /> },
+  { id: 1, name: "Dashboard", icon: <DashboardIcon /> , path:"/customer/"},
+  { id: 2, name: "Products", icon: <Inventory2OutlinedIcon />, path: "/customer/products" },
   { id: 3, name: "My Orders", icon: <ReceiptLongOutlinedIcon /> },
   { id: 4, name: "Cart", icon: <ShoppingCartOutlinedIcon /> },
   { id: 5, name: "Wishlist", icon: <FavoriteBorderIcon /> },
@@ -30,12 +32,14 @@ const menuData = [
   { id: 11, name: "Settings", icon: <SettingsOutlinedIcon /> },
 ];
   const [isMenuclose, setisMenuclose] = useState(false);
+  const navigate = useNavigate();
 
 
  const menuItems = menuData.map((item) => (
   <div
     key={item.id}
     className={styles.menuItem}
+    onClick={() => item.path && navigate(item.path)}
     style={{
       justifyContent: isMenuclose ? "center" : ""
     }}
@@ -109,9 +113,7 @@ const menuData = [
 
     {/* CONTENT AREA  */}
     <div className={styles.content}>
-      <p>
-       Lorem ipsum dolor sit amet consectetur adipisicing elit. Non totam nulla ipsam ad architecto, vel error dolores. Quidem itaque, in veniam quas fugit nihil exercitationem perferendis aperiam, sint, reiciendis rerum.
-      </p>
+       <Outlet/>
     </div>
 
   </div>
