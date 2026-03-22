@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './product.module.css'
 import { Chip } from '@mui/material'
 
-function ProductCard({ item, deleteProduct }) {
+function ProductCard({ item, deleteProduct, editProduct }) {
   let { image,name,price,unit,isOrganic,quantity}=item;
   const [open, setOpen] = useState(false)
   const [product, setProduct] = useState({
@@ -13,7 +13,6 @@ function ProductCard({ item, deleteProduct }) {
     isOrganic
   })
 
-  // edit function
   function edit(event) {
     let value = event.target.value;
     let name = event.target.name;
@@ -22,13 +21,10 @@ function ProductCard({ item, deleteProduct }) {
     setProduct(obj);
   }
 
-// SUBMIT
-
-    function handleSubmit() {
+  function handleSubmit() {
+    editProduct({ ...product, _id: item._id })
     setOpen(false)
   }
-
-  //checkbox function
 
   function handleIsorganic(event) {
     let value = event.target.checked;
@@ -38,13 +34,11 @@ function ProductCard({ item, deleteProduct }) {
     setProduct(obj);
   }
 
-//DELETE 
-
   function handleDelete() {
     let res = window.confirm("Want to delete this product?")
     if (!res) 
-        return
-    deleteProduct(item.id)
+      return
+    deleteProduct(item._id)
   }
 
   return (
@@ -54,7 +48,6 @@ function ProductCard({ item, deleteProduct }) {
         <h1>{product.name}</h1>
         <p>₹ {product.price} / {product.unit}</p>
 
-        {/* Buttons */}
         <div className={styles.actions}>
           <button
             className={styles.editbtn}
@@ -71,9 +64,7 @@ function ProductCard({ item, deleteProduct }) {
           </button>
         </div>
 
-        {/* Organic Chip */}
-
-        {  product.isOrganic ? (
+        {product.isOrganic ? (
             <Chip
                 label="Organic"
                 sx={{
@@ -84,10 +75,8 @@ function ProductCard({ item, deleteProduct }) {
                 left: "10px"
                 }}
             />
-            ) :""
-        }
+        ) : ""}
 
-        {/* Quantity Chip */}
         <Chip
            label={`${product.quantity}  ${product.unit}`}
           color="primary"
@@ -98,75 +87,56 @@ function ProductCard({ item, deleteProduct }) {
           }}
         />
       </div>
-{/*  
-  //POP-UP */}
 
-   {
-     open ? (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalBox}>
-        <h2>Edit Product</h2>
+      {
+        open ? (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalBox}>
+            <h2>Edit Product</h2>
 
-        <label>Name</label>
-        <input
-          name="name"
-          value={product.name}
-          onChange={edit}
-        />
+            <label>Name</label>
+            <input name="name" value={product.name} onChange={edit}/>
 
-        <label>Price</label>
-        <input
-          name="price"
-          value={product.price}
-          onChange={edit}
-        />
+            <label>Price</label>
+            <input name="price" value={product.price} onChange={edit}/>
 
-        <label>Unit</label>
-        <input
-          name="unit"
-          value={product.unit}
-          onChange={edit}
-        />
+            <label>Unit</label>
+            <input name="unit" value={product.unit} onChange={edit}/>
 
-        <label>Quantity</label>
-        <input
-          name="quantity"
-          value={product.quantity}
-          onChange={edit}
-        />
+            <label>Quantity</label>
+            <input name="quantity" value={product.quantity} onChange={edit}/>
 
-        <label className={styles.checkRow}>
-          <input
-            type="checkbox"
-            name="isOrganic"
-            checked={product.isOrganic}
-            onChange={handleIsorganic}
-          />
-          Organic
-        </label>
+            <label className={styles.checkRow}>
+              <input
+                type="checkbox"
+                name="isOrganic"
+                checked={product.isOrganic}
+                onChange={handleIsorganic}
+              />
+              Organic
+            </label>
 
-        <div className={styles.modalButtons}>
+            <div className={styles.modalButtons}>
 
-          <button
-            className={styles.editbtn}
-            onClick={handleSubmit}
-          >
-            Submit
-          </button>
+              <button
+                className={styles.editbtn}
+                onClick={handleSubmit}
+              >
+                Submit
+              </button>
 
-          <button
-            className={styles.deletebtn}
-            onClick={() => setOpen(false)}
-          >
-            Cancel
-          </button>
+              <button
+                className={styles.deletebtn}
+                onClick={() => setOpen(false)}
+              >
+                Cancel
+              </button>
 
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  ) :  ""
- 
-}
+        ) : ""
+      }
 
     </div>
   )

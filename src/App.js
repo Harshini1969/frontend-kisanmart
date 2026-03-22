@@ -8,6 +8,9 @@ import "./App.css"
 import Customers from "./components/admin/admincustomers/Customers";
 import Products from "./components/admin/adminProducts/Product";
 import CustomerProducts from "./components/customer/CustomerProducts/Products";
+import Dashboard from "./components/admin/admindashboard/Dahboard";
+import Addtocart from "./components/customer/CustomerProducts/Addtocart";
+
 
 function App() {
   return (
@@ -21,12 +24,14 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           <Route path="/admin" element={<AdminDashboard />}>
+            <Route path="/admin/dashboard" element={<Dashboard/>}/>
             <Route path="/admin/customers" element={<Customers/>}/>
             <Route path="/admin/products" element={<Products/>}/>
           </Route>
 
           <Route path="/customer" element={<CustomerDashboard />} >
              <Route path="/customer/products" element={<CustomerProducts/>}/>
+              <Route path="/customer/cart" element={<Addtocart/>}/>
           </Route>
 
         </Routes>

@@ -1,59 +1,67 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ProductCard from './ProductCard'
 import styles from './product.module.css'
 import { Grid } from '@mui/material'
 import AddProduct from './AddProduct'
+import axios from "axios"
 
 function Products() {
 
-  const [products, setProducts] = useState([
-    { id: 1, name: "Rice", price: 70, unit: "kg", quantity: 100, isOrganic: true, image: "/Ricebag.jpg"},
-    { id: 2, name: "Milk", price: 38, unit: "liter", quantity: 80 , isOrganic: false, image: "/milk.jpg"},
-    { id: 3, name: "Apple", price: 120, unit: "kg", quantity:50 , isOrganic: false, image: "/Apple.jpg"},
-    { id: 4, name: "Pomegranate", price: 150, unit: "kg", quantity: 40 , isOrganic: true, image: "/pomegranate.jpg"},
-    { id: 5, name: "Orange", price: 80, unit: "kg", quantity: 60 , isOrganic: true, image: "/orange.jpg"},
-    { id: 6, name: "Tomato", price: 40, unit: "kg", quantity: 70 , isOrganic: true, image: "/Tomato.jpeg"},
-    { id: 7, name: "Potato", price: 30, unit: "kg", quantity: 120 , isOrganic: true, image: "/potato.jpg"},
-    { id: 8, name: "Onion", price: 35, unit: "kg", quantity: 100 , isOrganic: false, image: "/onion.jpg"},
-    { id: 9, name: "Carrot", price: 50, unit: "kg", quantity: 65 , isOrganic: false, image: "/carrot.jpg"},
-    { id: 10, name: "Cabbage", price: 28, unit: "kg", quantity: 45 , isOrganic: true, image: "/cabbage.jpg"},
-    { id: 11, name: "Cauliflower", price: 45, unit: "kg", quantity: 55 , isOrganic: false, image: "/cauliflower.jpg"},
-    { id: 12, name: "Spinach", price: 25, unit: "bunch", quantity:90 , isOrganic: true, image: "/Spinach.jpg"},
-    { id: 13, name: "Capsicum", price: 70, unit: "kg", quantity:40 , isOrganic: false, image: "/capsicum.jpg"},
-    { id: 14, name: "Brinjal", price: 40, unit: "kg", quantity: 60 , isOrganic: true, image: "/brinjal.jpg"},
-    { id: 15, name: "Mango", price: 100, unit: "kg", quantity: 35 , isOrganic: true, image: "/mango.jpg"},
-    { id: 16, name: "Banana", price: 70, unit: "kg", quantity: 75 , isOrganic: false, image: "/banana.jpg"}
-  ])
-
+  const [products, setProducts] = useState([])
   const [openAdd, setOpenAdd] = useState(false)
+  const API = process.env.REACT_APP_BE_API_URL + "/product"
+
+  // GET PRODUCTS
+  async function fetchProducts(){
+    try{
+      let res = await axios.get(`${API}/getAll`)
+      setProducts(res.data)
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(()=>{
+    fetchProducts()
+  },[])
 
   // EDIT PRODUCT
-  function editProduct(updatedProduct){
-    let newArr = products.map((item)=>{
-      if(item.id === updatedProduct.id){
-        return updatedProduct
-      }
-      return item
-    })
-    setProducts(newArr)
+  async function editProduct(updatedProduct){
+    try{
+      await axios.put(`${API}/edit/${updatedProduct._id}`, updatedProduct)
+      fetchProducts()
+    }
+    catch(err){
+      console.log(err)
+    }
   }
 
   // DELETE PRODUCT
-  function deleteProduct(id) {
-    let newArr = products.filter((item) => id !== item.id)
-    setProducts(newArr);
+  async function deleteProduct(id) {
+    try{
+      await axios.delete(`${API}/delete/${id}`)
+      fetchProducts()
+    }
+    catch(err){
+      console.log(err)
+    }
   }
 
   // ADD PRODUCT
-  function addProduct(newProduct) {
-    let obj = { ...newProduct }
-    let newArr = [...products, obj];
-    setProducts(newArr);
+  async function addProduct(newProduct) {
+    try{
+      await axios.post(`${API}/add`, newProduct)
+      fetchProducts()
+    }
+    catch(err){
+      console.log(err)
+    }
   }
 
   let display = products.map((item) => {
     return (
-      <Grid key={item.id} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
+      <Grid key={item._id} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
         <ProductCard 
           item={item}
           deleteProduct={deleteProduct}
@@ -70,29 +78,28 @@ function Products() {
         className={styles.addBtn}
         onClick={() => setOpenAdd(true)}
       >
-        + Add Product
+         Add Product +
       </button>
 
       <Grid container spacing={2}>
         {display}
       </Grid>
 
-      {/* ✅ Add Product Popup */}
       {
-  openAdd ? (
-    <div className={styles.addOverlay}>
-      <div className={styles.addBox}>
-        <AddProduct 
-          addProduct={(data) => {
-            addProduct(data)
-            setOpenAdd(false)
-          }} 
-          onClose={() => setOpenAdd(false)}
-        />
-      </div>
-    </div>
-  ) : ""
-}
+        openAdd ? (
+          <div className={styles.addOverlay}>
+            <div className={styles.addBox}>
+              <AddProduct 
+                addProduct={(data) => {
+                  addProduct(data)
+                  setOpenAdd(false)
+                }} 
+                onClose={() => setOpenAdd(false)}
+              />
+            </div>
+          </div>
+        ) : ""
+      }
 
     </div>
   )

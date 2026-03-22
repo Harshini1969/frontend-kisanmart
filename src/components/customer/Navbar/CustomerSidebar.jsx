@@ -22,7 +22,7 @@ const menuData = [
   { id: 1, name: "Dashboard", icon: <DashboardIcon /> , path:"/customer/"},
   { id: 2, name: "Products", icon: <Inventory2OutlinedIcon />, path: "/customer/products" },
   { id: 3, name: "My Orders", icon: <ReceiptLongOutlinedIcon /> },
-  { id: 4, name: "Cart", icon: <ShoppingCartOutlinedIcon /> },
+  { id: 4, name: "Cart", icon: <ShoppingCartOutlinedIcon /> ,path:"/customer/cart"},
   { id: 5, name: "Wishlist", icon: <FavoriteBorderIcon /> },
   { id: 6, name: "Address", icon: <LocationOnOutlinedIcon /> },
   { id: 7, name: "Payments", icon: <PaymentsOutlinedIcon /> },

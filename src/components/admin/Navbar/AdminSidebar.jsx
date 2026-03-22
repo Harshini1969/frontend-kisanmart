@@ -8,21 +8,19 @@ import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Outlet, useNavigate } from "react-router-dom";
 
 function AdminSidebar() {
 
   const menuData = [
-    { id: 1, name: "Dashboard", icon: <DashboardIcon />, path: "/admin" },
+    { id: 1, name: "Dashboard", icon: <DashboardIcon />, path: "/admin/dashboard" },
     { id: 2, name: "Products", icon: <Inventory2OutlinedIcon />, path:"/admin/products" },
     { id: 3, name: "Orders", icon: <ShoppingCartOutlinedIcon /> },
     { id: 4, name: "Customers", icon: <PeopleOutlineIcon />, path: "/admin/customers" },
     { id: 5, name: "Promotions", icon: <LocalOfferOutlinedIcon /> },
     { id: 6, name: "Reports", icon: <AssessmentOutlinedIcon /> },
     { id: 7, name: "Payments", icon: <PaymentsOutlinedIcon /> },
-    { id: 8, name: "Settings", icon: <SettingsOutlinedIcon /> }
   ];
 
   const [isMenuclose, setisMenuclose] = useState(false);

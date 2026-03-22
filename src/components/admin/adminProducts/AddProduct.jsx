@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styles from './product.module.css'
 
 function AddProduct({ addProduct, onClose }) {
+
   const [product, setProduct] = useState({
     name: "",
     price: "",
@@ -10,16 +11,28 @@ function AddProduct({ addProduct, onClose }) {
     isOrganic: false
   })
 
-  function handleChange(e) {
-    const { name, value, type, checked } = e.target
-    setProduct(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }))
+  function handleChange(event) {
+
+    let value = event.target.value;
+    let name = event.target.name;
+    let type = event.target.type;
+    let checked = event.target.checked;
+
+    let obj = { ...product };
+
+    if (type === "checkbox") {
+      obj[name] = checked;
+    } 
+    else {
+      obj[name] = value;
+    }
+
+    setProduct(obj);
   }
 
   function handleSubmit() {
     addProduct(product)
+
     setProduct({
       name: "",
       price: "",
@@ -32,35 +45,35 @@ function AddProduct({ addProduct, onClose }) {
   return (
     <div>
 
-     <h2>Add Product</h2>
+      <h2>Add Product</h2>
 
       <label>Name</label>
-        <input 
-            name="name" 
-            value={product.name} 
-            onChange={handleChange} 
-        />
+      <input
+        name="name"
+        value={product.name}
+        onChange={handleChange}
+      />
 
       <label>Price</label>
-        <input 
-            name="price" 
-            value={product.price} 
-            onChange={handleChange} 
-        />
+      <input
+        name="price"
+        value={product.price}
+        onChange={handleChange}
+      />
 
-        <label>Unit</label>
-            <input 
-            name="unit" 
-            value={product.unit} 
-            onChange={handleChange} 
-            />
+      <label>Unit</label>
+      <input
+        name="unit"
+        value={product.unit}
+        onChange={handleChange}
+      />
 
       <label>Quantity</label>
-        <input 
-        name="quantity" 
-        value={product.quantity} 
-        onChange={handleChange} 
-        />
+      <input
+        name="quantity"
+        value={product.quantity}
+        onChange={handleChange}
+      />
 
       <label className={styles.checkRow}>
         <input
@@ -80,6 +93,7 @@ function AddProduct({ addProduct, onClose }) {
         >
           Add
         </button>
+
         <button
           className={styles.addBtnClose}
           type="button"
@@ -88,6 +102,7 @@ function AddProduct({ addProduct, onClose }) {
           Close
         </button>
       </div>
+
     </div>
   )
 }
