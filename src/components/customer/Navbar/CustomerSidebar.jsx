@@ -13,13 +13,13 @@ import RequestQuoteOutlinedIcon from "@mui/icons-material/RequestQuoteOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Outlet ,useNavigate} from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 
 function CustomerSidebar() {
 
 const menuData = [
-  { id: 1, name: "Dashboard", icon: <DashboardIcon /> , path:"/customer/"},
+  { id: 1, name: "Dashboard", icon: <DashboardIcon /> , path:"/customer/Dashboard"},
   { id: 2, name: "Products", icon: <Inventory2OutlinedIcon />, path: "/customer/products" },
   { id: 3, name: "My Orders", icon: <ReceiptLongOutlinedIcon /> },
   { id: 4, name: "Cart", icon: <ShoppingCartOutlinedIcon /> ,path:"/customer/cart"},
@@ -111,10 +111,7 @@ const menuData = [
 
     </div>
 
-    {/* CONTENT AREA  */}
-    <div className={styles.content}>
-       <Outlet/>
-    </div>
+  
 
   </div>
 );

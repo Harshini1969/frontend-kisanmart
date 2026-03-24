@@ -7,9 +7,10 @@ import LandingPage from "./components/LandingPage/LandingPage";
 import "./App.css"
 import Customers from "./components/admin/admincustomers/Customers";
 import Products from "./components/admin/adminProducts/Product";
-import CustomerProducts from "./components/customer/CustomerProducts/Products";
 import Dashboard from "./components/admin/admindashboard/Dahboard";
-import Addtocart from "./components/customer/CustomerProducts/Addtocart";
+import ProtectedRoute from "./components/ProtectedRoutes/ProtuctedRoute";
+import CustomerProducts from "./components/customer/CustomerProducts/CustomerProducts";
+import Cart from "./components/customer/Cart/Cart";
 
 
 function App() {
@@ -23,15 +24,31 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
 
-          <Route path="/admin" element={<AdminDashboard />}>
-            <Route path="/admin/dashboard" element={<Dashboard/>}/>
-            <Route path="/admin/customers" element={<Customers/>}/>
-            <Route path="/admin/products" element={<Products/>}/>
+          {/* ADMIN ROUTES */}
+          <Route 
+            path="/admin" 
+            element={
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="customers" element={<Customers />} />
+            <Route path="products" element={<Products />} />
           </Route>
 
-          <Route path="/customer" element={<CustomerDashboard />} >
-             <Route path="/customer/products" element={<CustomerProducts/>}/>
-              <Route path="/customer/cart" element={<Addtocart/>}/>
+          {/* CUSTOMER ROUTES */}
+          <Route 
+            path="/customer" 
+            element={
+              <ProtectedRoute>
+                <CustomerDashboard />
+              </ProtectedRoute>
+            }
+          >
+            <Route path="products" element={<CustomerProducts />} />
+            <Route path="cart" element={<Cart />} />
           </Route>
 
         </Routes>

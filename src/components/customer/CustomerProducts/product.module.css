@@ -1,6 +1,5 @@
 .card{
-    width: 90%;
-    height:365px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,7 +21,6 @@
 
 /* Text */
 .card h1{
-   
     font-size: 26px;
     font-weight: bold;
 }
@@ -42,7 +40,6 @@
     width: 0px;
 }
 
-
 /* Add to cart button */
 .btn{
     background-color: green;
@@ -56,27 +53,6 @@
 
 .btn:hover{
     background-color: rgb(173, 240, 173);
-}
-
-/*  Edit/Delete*/
-.actions{
-    display: flex;
-    gap: 15px;
-    margin-bottom: 10px;
-}
-
-/* Edit button */
-.btn{
-    background-color: #1fd219;
-    color: white;
-    border: none;
-    padding: 6px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.btn:hover{
-    background-color: #8ef408;
 }
 
 

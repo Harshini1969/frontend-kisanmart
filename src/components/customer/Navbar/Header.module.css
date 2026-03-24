@@ -54,7 +54,8 @@
   top:90%;
   right:30px;
   background:white;
-  font-size:16px;         
+  font-size:16px;      
+   z-index: 1000;   
 }
 
 .line{

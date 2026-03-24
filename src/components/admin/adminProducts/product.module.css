@@ -41,20 +41,6 @@
     width: 0px;
 }
 
-/* Add to cart button */
-.btn{
-    background-color: green;
-    padding: 10px 20px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-    border: none;
-    color: white;
-    cursor: pointer;
-}
-
-.btn:hover{
-    background-color: rgb(173, 240, 173);
-}
 
 /* Edit/Delete */
 .actions{

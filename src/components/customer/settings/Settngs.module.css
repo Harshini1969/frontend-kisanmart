@@ -1,0 +1,34 @@
+.container{
+  padding: 40px;
+}
+
+.container h1{
+  margin-bottom: 30px;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 20px;
+}
+
+.card{
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  background: white;
+}
+
+.card:hover{
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.card h3{
+  margin-bottom: 10px;
+}
+
+.card p{
+  color: gray;
+}

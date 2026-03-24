@@ -1,21 +1,19 @@
-import React from 'react'
-import styles from './product.module.css'
-import { Chip } from '@mui/material'
+import React from "react";
+import styles from "./product.module.css";
+import { Chip } from "@mui/material";
 
 function ProductCard({ item, addToCart }) {
-
-  let { image, name, price, unit, isOrganic, quantity } = item;
+  const { image, name, price, unit, isOrganic, quantity } = item;
 
   return (
     <div className={styles.card}>
-
       <img src={image} alt={name} />
-      <h1>{name}</h1>
+
+      <h2>{name}</h2>
       <p>₹ {price} / {unit}</p>
 
-      {/* Add To Cart Button */}
       <div className={styles.actions}>
-        <button 
+        <button
           className={styles.btn}
           onClick={() => addToCart(item)}
         >
@@ -23,7 +21,7 @@ function ProductCard({ item, addToCart }) {
         </button>
       </div>
 
-      {isOrganic &&
+      {isOrganic && (
         <Chip
           label="Organic"
           sx={{
@@ -34,7 +32,7 @@ function ProductCard({ item, addToCart }) {
             left: "10px"
           }}
         />
-      }
+      )}
 
       <Chip
         label={`${quantity} ${unit}`}
@@ -45,9 +43,8 @@ function ProductCard({ item, addToCart }) {
           right: "10px"
         }}
       />
-
     </div>
-  )
+  );
 }
 
-export default ProductCard
+export default ProductCard;

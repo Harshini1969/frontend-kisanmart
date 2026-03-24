@@ -9,7 +9,7 @@ import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import AssessmentOutlinedIcon from "@mui/icons-material/AssessmentOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
-import { Outlet, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 function AdminSidebar() {
 
@@ -94,11 +94,6 @@ function AdminSidebar() {
         {isMenuclose ? "" : <span>Logout</span>}
       </div>
 
-    </div>
-
-    {/* CONTENT AREA */}
-    <div className={styles.content}>
-      <Outlet />
     </div>
 
   </div>
