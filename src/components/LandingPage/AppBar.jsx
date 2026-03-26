@@ -13,7 +13,6 @@ function Appbar() {
     { text: "Home", path: "/" },
     { text: "Products", path: "/" },
     { text: "Categories", path: "/" },
-    { text: "Contact", path: "/" },
     { text: "About Us", path: "/" },
     { text: "Login", path: "/login" },
     { text: "Register", path: "/register" }

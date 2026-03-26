@@ -6,11 +6,8 @@ import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 
 function CustomerProduct() {
-  // Get search and category from context (set in CustomerDashboard)
   const { search, category } = useOutletContext();
-
   const [products, setProducts] = useState([]);
-
   const API = `${process.env.REACT_APP_BE_API_URL}/product`;
 
   useEffect(() => {
@@ -26,7 +23,6 @@ function CustomerProduct() {
     }
   }
 
-  // Filter products by search text and selected category
   const filteredProducts = products.filter((item) => {
     const itemCategory = item.category || item.Category || "Other";
 

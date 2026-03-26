@@ -1,50 +1,38 @@
 import { Card, CardContent, Typography, Box, Divider, TextField, Button } from "@mui/material";
 
-function Summary() {
+function Summary({ subtotal }) {
+
   return (
+
     <Card sx={{ display: "flex", borderRadius: 4, flex: 1 }}>
+
       <CardContent>
 
-        <Typography variant="h6" mb={2}  textAlign="center">
+        <Typography variant="h6" mb={2} textAlign="center">
           Order Summary
         </Typography>
 
         <Box display="flex" justifyContent="space-between" mb={1}>
           <Typography>Subtotal</Typography>
-          <Typography>₹ 565</Typography>
+          <Typography>₹ {subtotal}</Typography>
         </Box>
 
-        <Box display="flex" justifyContent="space-between" mb={1}>
-          <Typography>Discount (-20%)</Typography>
-          <Typography color="error">-₹ 113</Typography>
-        </Box>
+        <Divider sx={{ my: 2 }} />
 
-        <Box 
-          display="flex"
-          justifyContent="space-between" 
-          mb="2px"
-         >
-          <Typography>Delivery Fee</Typography>
-          <Typography>₹ 15</Typography>
-        </Box>
-
-        <Divider sx={{ mb: 2 }} />
-
-        <Box display="flex" justifyContent="space-between" mb="3px"  >
+        <Box display="flex" justifyContent="space-between">
           <Typography fontWeight={600}>Total</Typography>
-          <Typography fontWeight={600}>₹ 467</Typography>
+          <Typography fontWeight={600}>₹ {subtotal}</Typography>
         </Box>
 
-        <Box display="flex" flexDirection="column" gap="4px" mb="4px">
-
+        <Box display="flex" flexDirection="column" gap="4px" mt={2}>
           <Typography fontWeight={600}>Address</Typography>
-          
+
           <TextField
             fullWidth
             size="small"
             placeholder="Add Address"
-            multiline       
-            rows={4}      
+            multiline
+            rows={4}
           />
         </Box>
 
@@ -61,7 +49,9 @@ function Summary() {
         </Button>
 
       </CardContent>
+
     </Card>
+
   );
 }
 

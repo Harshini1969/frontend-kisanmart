@@ -1,21 +1,37 @@
 import React from "react";
 import styles from "./product.module.css";
 import { Chip } from "@mui/material";
+import axios from "axios";
 
-function ProductCard({ item, addToCart }) {
-  const { image, name, price, unit, isOrganic, quantity } = item;
+function ProductCard({item}) {
+  const { image, name, price, unit, isOrganic, quantity, _id } = item;
+  const API = `${process.env.REACT_APP_BE_API_URL}/cart`;
+
+  async function addToCart() {
+    try {
+      const res = await axios.post(`${API}/add`, {
+        productId: _id,
+        count: 1
+      });
+      // console.log(res.data);
+      alert("Product added to cart");
+
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
 
   return (
     <div className={styles.card}>
       <img src={image} alt={name} />
-
       <h2>{name}</h2>
       <p>₹ {price} / {unit}</p>
 
       <div className={styles.actions}>
         <button
           className={styles.btn}
-          onClick={() => addToCart(item)}
+          onClick={addToCart}
         >
           Add To Cart
         </button>
@@ -43,6 +59,7 @@ function ProductCard({ item, addToCart }) {
           right: "10px"
         }}
       />
+
     </div>
   );
 }

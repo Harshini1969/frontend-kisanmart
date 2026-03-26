@@ -1,56 +1,80 @@
-import { Box, Typography, IconButton } from "@mui/material";
-import { Add, Delete, Remove } from "@mui/icons-material";
+import { Grid, Stack, Box, Typography, IconButton } from "@mui/material";
+import { Add, Remove, Delete } from "@mui/icons-material";
+import { useState, useEffect } from "react";
 
-function CartItem({ item, onDelete }) {
-  
-  function handleClick() {
-    onDelete(item.id); 
+function CartItem({ item, deleteItem, updateQuantity }) {
+
+  let { id, name, category, price, unit, quantity, image } = item;
+  const [count, setCount] = useState(quantity);
+
+  useEffect(() => {
+    setCount(quantity);
+  }, [quantity]);
+
+  function dec() {
+    if (count <= 1) return;
+    const newCount = count - 1;
+    setCount(newCount);
+    updateQuantity(id, newCount);
   }
 
-  return (
-    <Box display="flex" justifyContent="space-between" alignItems="center" p={1}>
-    
-      <Box display="flex" gap={2}>
-        <Box
-          component="img"
-          src="/logo.png"
-          alt={item.title}
-          sx={{ width: 80, height: 80, borderRadius: 2 }}
-        />
-        <Box>
-          <Typography fontWeight={600}>{item.title}</Typography>
-          <Typography variant="body2">Size: {item.size}</Typography>
-          <Typography variant="body2">Color: {item.color}</Typography>
-          <Typography mt={1} fontWeight={600}>
-            ₹ {item.price}
-          </Typography>
-        </Box>
-      </Box>
+ function inc() {
+  const newCount = count + 1;
+  setCount(newCount);
+  updateQuantity(id, newCount);
+}
 
-      <Box display="flex" alignItems="center" gap={1}>
-        <Box
-          display="flex"
-          alignItems="center"
-          bgcolor="#f5f5f5"
-          borderRadius={2}
-          px={1}
-        >
-          <IconButton size="small">
+  function handleDelete() {
+    deleteItem(id);
+  }
+
+  let totalPrice = price * count;
+
+  return (
+    <Grid size={{ xs: 12 }} sx={{ padding: "10px" }}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center">
+        <Stack direction="row" spacing={2} alignItems="center">
+          <Box
+            component="img"
+            src={image}
+            sx={{
+              width: "100px",
+              height: "100px",
+              borderRadius: "10px"
+            }}
+          />
+
+          <Box>
+            <Typography fontWeight="600">{name}</Typography>
+            <Typography variant="body2">{category}</Typography>
+            <Typography>
+              ₹ {price} / {unit}
+            </Typography>
+            <Typography fontWeight="600">
+              Total : ₹ {totalPrice}
+            </Typography>
+
+          </Box>
+        </Stack>
+
+        <Stack direction="row" alignItems="center" spacing={1}>
+
+          <IconButton onClick={dec}>
             <Remove />
           </IconButton>
-
-          <Typography mx={1}>1</Typography>
-
-          <IconButton size="small">
+          <Typography>{count}</Typography>
+          <IconButton onClick={inc}>
             <Add />
           </IconButton>
-        </Box>
+          <IconButton color="error" onClick={handleDelete}>
+            <Delete />
+          </IconButton>
 
-        <IconButton color="error" onClick={handleClick}>
-          <Delete />
-        </IconButton>
-      </Box>
-    </Box>
+        </Stack>
+
+      </Stack>
+
+    </Grid>
   );
 }
 

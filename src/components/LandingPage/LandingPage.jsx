@@ -5,6 +5,7 @@ import WhyChooseOurMart from '../Homepage/WhyChooseOurMart ';
 import Review from '../Homepage/Review';
 import Footer from '../Homepage/Footer';
 import Appbar from './AppBar';
+import Categories from '../Homepage/Categories';
 
 function LandingPage() {
   return (
@@ -12,6 +13,7 @@ function LandingPage() {
       <Appbar/>
       <Herosection />
       <Products />
+      <Categories/>
       <WhyChooseOurMart />
       <Review/>
       <Footer/>
