@@ -10,10 +10,6 @@ function CustomerProduct() {
   const [products, setProducts] = useState([]);
   const API = `${process.env.REACT_APP_BE_API_URL}/product`;
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
   async function fetchProducts() {
     try {
       const res = await axios.get(`${API}/getAll`);
@@ -23,17 +19,17 @@ function CustomerProduct() {
     }
   }
 
-  const filteredProducts = products.filter((item) => {
+   useEffect(() => {
+    fetchProducts();
+  }, []);
+
+    const filteredProducts = products.filter((item) => {
     const itemCategory = item.category || item.Category || "Other";
-
     const text = search.toLowerCase();
-
     const matchesSearch =
       item.name?.toLowerCase().includes(text) ||
       itemCategory?.toLowerCase().includes(text);
-
     const matchesCategory = category === "All" || itemCategory === category;
-
     return matchesSearch && matchesCategory;
   });
 

@@ -4,7 +4,7 @@ import { Chip } from "@mui/material";
 import axios from "axios";
 
 function ProductCard({item}) {
-  const { image, name, price, unit, isOrganic, quantity, _id } = item;
+  const {image, name, price, unit, isOrganic, quantity, _id}=item;
   const API = `${process.env.REACT_APP_BE_API_URL}/cart`;
 
   async function addToCart() {
@@ -13,7 +13,8 @@ function ProductCard({item}) {
         productId: _id,
         count: 1
       });
-      // console.log(res.data);
+
+      console.log(res.data);
       alert("Product added to cart");
 
     } catch (err) {
