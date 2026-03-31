@@ -88,7 +88,7 @@ function Summary({ subtotal }) {
 
            onClick={handlePayment}
         >
-          Place Order 
+          Place Order →
         </Button>
 
       </CardContent>
