@@ -84,7 +84,7 @@ function Orders() {
         >
           <CardContent>
 
-            {/* ✅ STEPPER */}
+            {/* STEPPER */}
             {step !== -1 && (
               <Stepper activeStep={step - 1} alternativeLabel sx={{ mb: 2 }}>
                 {steps.map((label) => (
@@ -95,7 +95,7 @@ function Orders() {
               </Stepper>
             )}
 
-            {/* ✅ DATE */}
+            {/*  DATE */}
             <Typography
               variant="subtitle2"
               sx={{
@@ -109,7 +109,7 @@ function Orders() {
               {orderDate} | {orderTime}
             </Typography>
 
-            {/* ✅ STATUS */}
+            {/* STATUS */}
             <Typography
               sx={{
                 fontWeight: "bold",
@@ -120,7 +120,7 @@ function Orders() {
               Status: {status}
             </Typography>
 
-            {/* ✅ PRODUCTS */}
+            {/* PRODUCTS */}
             <Box>
               {arr}
             </Box>
