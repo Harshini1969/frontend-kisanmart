@@ -2,13 +2,13 @@ import React from "react";
 import { Box, Grid, Card, CardContent, Typography } from "@mui/material";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
-import BarChartIcon from "@mui/icons-material/BarChart";
+import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
+import RequestQuoteOutlinedIcon from "@mui/icons-material/RequestQuoteOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 
 import { useNavigate } from "react-router-dom"; 
 
-function Dashboard() {
+function Customerdashboard() {
 
    const navigate = useNavigate();
 
@@ -17,32 +17,25 @@ function Dashboard() {
       title: "Products",
       subtitle: "Manage your products",
       icon: <Inventory2OutlinedIcon fontSize="medium" />,
-      route: "/admin/products",
+      route: "/customer/products",
       color: "#2563eb",
       bg: "#e0edff",
     },
     {
       title: "Orders",
       subtitle: "Track all orders",
-      icon: <ShoppingCartOutlinedIcon fontSize="medium" />,
-      route: "/admin/order",
+      icon: <ReceiptLongOutlinedIcon  fontSize="medium" />,
+      route: "/customer/orders",
       color: "#7c3aed",
       bg: "#f3e8ff",
     },
     {
-      title: "Customers",
-      subtitle: "View customer data",
-      icon: <PeopleOutlineIcon fontSize="medium" />,
-      route:"/admin/customers",
+      title: "Cart",
+      subtitle: "View cart products",
+      icon: <ShoppingCartOutlinedIcon fontSize="medium" />,
+      route:"/customer/cart",
       color: "#4f46e5",
       bg: "#eef2ff",
-    },
-    {
-      title: "Reports",
-      subtitle: "Analyze reports",
-      icon: <BarChartIcon fontSize="medium" />,
-      color: "#f59e0b",
-      bg: "#fff7ed",
     },
     {
       title: "Payments",
@@ -51,6 +44,14 @@ function Dashboard() {
       color: "#10b981",
       bg: "#ecfdf5",
     },
+    {
+      title: "Refund",
+      subtitle: "Amount Refund",
+      icon: <RequestQuoteOutlinedIcon fontSize="medium" />,
+      color: "#f59e0b",
+      bg: "#fff7ed",
+    },
+    
   ];
 
   return (
@@ -58,10 +59,10 @@ function Dashboard() {
       
       {/* Title */}
       <Typography variant="h5" sx={{ fontWeight: 800, color: "#111827" }}>
-        Admin Dashboard
+        Customer Dashboard
       </Typography>
 
-      <Typography variant="caption" sx={{ fontWeight: 600,color: "#6b7280" }}>
+      <Typography variant="caption" sx={{ color: "#6b7280" }}>
         Kisan Mart
       </Typography>
 
@@ -123,4 +124,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default Customerdashboard;

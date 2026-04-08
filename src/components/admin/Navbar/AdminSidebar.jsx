@@ -16,7 +16,7 @@ function AdminSidebar() {
   const menuData = [
     { id: 1, name: "Dashboard", icon: <DashboardIcon />, path: "/admin/dashboard" },
     { id: 2, name: "Products", icon: <Inventory2OutlinedIcon />, path:"/admin/products" },
-    { id: 3, name: "Orders", icon: <ShoppingCartOutlinedIcon /> },
+    { id: 3, name: "Orders", icon: <ShoppingCartOutlinedIcon /> , path: "/admin/order"},
     { id: 4, name: "Customers", icon: <PeopleOutlineIcon />, path: "/admin/customers" },
     { id: 5, name: "Promotions", icon: <LocalOfferOutlinedIcon /> },
     { id: 6, name: "Reports", icon: <AssessmentOutlinedIcon /> },

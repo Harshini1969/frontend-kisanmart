@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Card, CardContent, Button, Grid } from "@mui/material";
 
-function Products() {
+function LandingProducts() {
 
 const productData = [
   { id: 1, name: "Rice", price: 60, unit: "kg", image: "/Ricebag.jpg" },
@@ -94,4 +94,4 @@ const productData = [
   );
 }
 
-export default Products;
+export default LandingProducts;

@@ -6,6 +6,7 @@ import { useState } from "react";
 function Cart() {
 
   const [subtotal, setSubtotal] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
 
   return (
     <Box p={3}>
@@ -19,9 +20,17 @@ function Cart() {
         gap="10px"
         alignItems="flex-start"
       >
-        <CartItems setSubtotal={setSubtotal} />
-        <Summary subtotal={subtotal} />
+        <CartItems
+          setSubtotal={setSubtotal}
+          setCartItems={setCartItems}
+        />
+
+        <Summary
+          subtotal={subtotal}
+          cartItems={cartItems}
+        />
       </Box>
+
     </Box>
   );
 }

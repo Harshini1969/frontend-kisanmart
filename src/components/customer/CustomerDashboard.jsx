@@ -22,7 +22,16 @@ function CustomerDashboard() {
         <CustomerSidebar />
 
         {/* CONTENT */}
-        <div style={{ flex: 1 }}>
+        <div   
+          style={{
+            flex: 1,
+            padding: "20px",
+            background: "#93f9e8",
+            marginTop:"15px",
+            marginRight: "20px",
+            borderRadius: "15px",
+          }}
+        >
           <Outlet context={{ search, category }} />
         </div>
       </div>

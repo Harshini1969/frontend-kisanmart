@@ -11,6 +11,9 @@ import Dashboard from "./components/admin/admindashboard/Dahboard";
 import ProtectedRoute from "./components/ProtectedRoutes/ProtuctedRoute";
 import CustomerProducts from "./components/customer/CustomerProducts/CustomerProducts";
 import Cart from "./components/customer/Cart/Cart";
+import Orders from "./components/customer/CustomerOrders/Orders";
+import AdmminOrders from "./components/admin/adminorders/AdminOrders";
+import Customerdashboard from "./components/customer/customerDashboard/Customerdashboard";
 
 
 function App() {
@@ -36,6 +39,7 @@ function App() {
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="customers" element={<Customers />} />
             <Route path="products" element={<Products />} />
+             <Route path="order" element={<AdmminOrders />} />
           </Route>
 
           {/* CUSTOMER ROUTES */}
@@ -47,8 +51,10 @@ function App() {
               </ProtectedRoute>
             }
           >
+            <Route path="dashboard" element={<Customerdashboard/>} />
             <Route path="products" element={<CustomerProducts />} />
             <Route path="cart" element={<Cart />} />
+             <Route path="orders" element={<Orders/>} />
           </Route>
 
         </Routes>

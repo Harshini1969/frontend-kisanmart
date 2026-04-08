@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useCallback } from 'react';
 import ProductCard from './ProductCard';
 import styles from './product.module.css';
 import { Grid } from '@mui/material';
@@ -13,21 +14,22 @@ function Products() {
 
   const { search, category } = useOutletContext();
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  async function fetchProducts() {
+  //  useCallback 
+  const fetchProducts = useCallback(async () => {
     try {
       const res = await axios.get(`${API}/getAll`);
       setProducts(res.data);
     } catch (err) {
       console.log(err);
     }
-  }
+  }, [API]);
 
-//EDIT
 
+  useEffect(() => {
+    fetchProducts();
+  }, [fetchProducts]);
+
+  // EDIT
   async function editProduct(updatedProduct) {
     try {
       await axios.put(`${API}/edit/${updatedProduct._id}`, updatedProduct);
@@ -37,8 +39,7 @@ function Products() {
     }
   }
 
-  //DELETE
-
+  // DELETE
   async function deleteProduct(id) {
     try {
       await axios.delete(`${API}/delete/${id}`);
@@ -48,8 +49,7 @@ function Products() {
     }
   }
 
-  //ADD
-
+  // ADD
   async function addProduct(newProduct) {
     try {
       await axios.post(`${API}/add`, newProduct);
@@ -59,8 +59,7 @@ function Products() {
     }
   }
 
-  //FILTER
-
+  // FILTER
   const filteredProducts = products.filter((item) => {
     const itemCategory = item.category || item.Category || 'Other';
     const text = search.toLowerCase();
@@ -69,13 +68,16 @@ function Products() {
       item.name?.toLowerCase().includes(text) ||
       itemCategory?.toLowerCase().includes(text);
 
-    const matchesCategory = category === 'All' || itemCategory === category;
+    const matchesCategory =
+      category === 'All' || itemCategory === category;
 
     return matchesSearch && matchesCategory;
   });
 
   return (
     <div className={styles.cardsContainer}>
+      
+      {/* ADD BUTTON */}
       <button
         type="button"
         className={styles.addBtn}
@@ -84,15 +86,21 @@ function Products() {
         Add Product +
       </button>
 
-      <Grid container spacing={2}>
+      {/* GRID */}
+      <Grid container spacing={3}>
         {filteredProducts.length > 0 ? (
           filteredProducts.map((item) => (
-            <Grid key={item._id} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
-              <ProductCard
-                item={item}
-                deleteProduct={deleteProduct}
-                editProduct={editProduct}
-              />
+            
+            <Grid item xs={12} sm={6} md={4} lg={4} key={item._id}>
+              
+              <div className={styles.cardWrapper}>
+                <ProductCard
+                  item={item}
+                  deleteProduct={deleteProduct}
+                  editProduct={editProduct}
+                />
+              </div>
+
             </Grid>
           ))
         ) : (
@@ -100,6 +108,7 @@ function Products() {
         )}
       </Grid>
 
+      {/* ADD PRODUCT MODAL */}
       {openAdd && (
         <div className={styles.addOverlay}>
           <div className={styles.addBox}>

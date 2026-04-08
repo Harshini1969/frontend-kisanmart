@@ -1,21 +1,23 @@
 import React from 'react';
 import Herosection from '../Homepage/Herosection';
-import Products from '../Homepage/Products';
 import WhyChooseOurMart from '../Homepage/WhyChooseOurMart ';
-import Review from '../Homepage/Review';
 import Footer from '../Homepage/Footer';
 import Appbar from './AppBar';
 import Categories from '../Homepage/Categories';
+import LandingProducts from '../Homepage/LandingProducts';
+import CustomerReviews from '../Homepage/Review';
 
 function LandingPage() {
   return (
     <div>  
       <Appbar/>
       <Herosection />
-      <Products />
+
+      <h1>TEST PRODUCTS</h1>
+      <LandingProducts />
       <Categories/>
       <WhyChooseOurMart />
-      <Review/>
+      <CustomerReviews/>
       <Footer/>
     </div>
   );

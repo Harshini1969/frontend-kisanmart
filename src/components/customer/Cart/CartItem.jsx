@@ -13,16 +13,17 @@ function CartItem({ item, deleteItem, updateQuantity }) {
 
   function dec() {
     if (count <= 1) return;
+
     const newCount = count - 1;
     setCount(newCount);
     updateQuantity(id, newCount);
   }
 
- function inc() {
-  const newCount = count + 1;
-  setCount(newCount);
-  updateQuantity(id, newCount);
-}
+  function inc() {
+    const newCount = count + 1;
+    setCount(newCount);
+    updateQuantity(id, newCount);
+  }
 
   function handleDelete() {
     deleteItem(id);
@@ -33,7 +34,9 @@ function CartItem({ item, deleteItem, updateQuantity }) {
   return (
     <Grid size={{ xs: 12 }} sx={{ padding: "10px" }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
+
         <Stack direction="row" spacing={2} alignItems="center">
+
           <Box
             component="img"
             src={image}
@@ -47,14 +50,16 @@ function CartItem({ item, deleteItem, updateQuantity }) {
           <Box>
             <Typography fontWeight="600">{name}</Typography>
             <Typography variant="body2">{category}</Typography>
+
             <Typography>
               ₹ {price} / {unit}
             </Typography>
+
             <Typography fontWeight="600">
               Total : ₹ {totalPrice}
             </Typography>
-
           </Box>
+
         </Stack>
 
         <Stack direction="row" alignItems="center" spacing={1}>
@@ -62,10 +67,13 @@ function CartItem({ item, deleteItem, updateQuantity }) {
           <IconButton onClick={dec}>
             <Remove />
           </IconButton>
+
           <Typography>{count}</Typography>
+
           <IconButton onClick={inc}>
             <Add />
           </IconButton>
+
           <IconButton color="error" onClick={handleDelete}>
             <Delete />
           </IconButton>
@@ -73,7 +81,6 @@ function CartItem({ item, deleteItem, updateQuantity }) {
         </Stack>
 
       </Stack>
-
     </Grid>
   );
 }

@@ -1,26 +1,30 @@
-import React from "react";
+
+import React, { useState } from "react";
 import styles from "./product.module.css";
-import { Chip } from "@mui/material";
+import { Chip, Snackbar, Alert } from "@mui/material";
 import axios from "axios";
 
-function ProductCard({item}) {
-  const {image, name, price, unit, isOrganic, quantity, _id}=item;
+function ProductCard({ item }) {
+  const { image, name, price, unit, isOrganic, quantity, _id } = item;
   const API = `${process.env.REACT_APP_BE_API_URL}/cart`;
+
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   async function addToCart() {
     try {
-      const res = await axios.post(`${API}/add`, {
-        productId: _id,
-        count: 1
-      });
+      const token = localStorage.getItem("token");
 
-      console.log(res.data);
-      alert("Product added to cart");
+      await axios.post(
+        `${API}/add`,
+        { productId: _id, count: 1 },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-    } catch (err) {
+      setOpenSnackbar(true);
+    } 
+    catch (err) {
       console.log(err);
     }
-
   }
 
   return (
@@ -30,10 +34,7 @@ function ProductCard({item}) {
       <p>₹ {price} / {unit}</p>
 
       <div className={styles.actions}>
-        <button
-          className={styles.btn}
-          onClick={addToCart}
-        >
+        <button className={styles.btn} onClick={addToCart}>
           Add To Cart
         </button>
       </div>
@@ -46,7 +47,7 @@ function ProductCard({item}) {
             color: "white",
             position: "absolute",
             top: "10px",
-            left: "10px"
+            left: "10px",
           }}
         />
       )}
@@ -57,10 +58,25 @@ function ProductCard({item}) {
         sx={{
           position: "absolute",
           top: "10px",
-          right: "10px"
+          right: "10px",
         }}
       />
 
+      {/* Snackbar */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          {name} added to cart!
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

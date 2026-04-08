@@ -1,59 +1,139 @@
 import { Card, CardContent, Divider } from "@mui/material";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import CartItem from "./CartItem";
 
-import {fetchCartItems,deleteCartItem,updateCartItem,} from  "../../../Redux/cartSlice";
+function CartItems({ setSubtotal, setCartItems }) {
 
-function CartItems({ setSubtotal }) {
-  const dispatch = useDispatch();
+  const [items, setItems] = useState([]);
+  const API = `${process.env.REACT_APP_BE_API_URL}/cart`;
 
-  const items = useSelector((state) => state.cart.items);
+  async function getCartItems() {
 
-  //  Fetch from Redux instead of axios
+    try {
+
+      const token = localStorage.getItem("token");
+
+      const res = await axios.get(`${API}/getAll`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setItems(res.data);
+      setCartItems(res.data);
+
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
+
+  async function deleteItem(id) {
+
+    try {
+
+      const token = localStorage.getItem("token");
+
+      await axios.delete(`${API}/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setItems((prev) => {
+        const updated = prev.filter((item) => item._id !== id);
+        setCartItems(updated);
+        return updated;
+      });
+
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
+
+  async function updateQuantity(id, count) {
+
+    try {
+
+      const token = localStorage.getItem("token");
+
+      await axios.put(
+        `${API}/update/${id}`,
+        { count },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+
+      setItems((prev) => {
+        const updated = prev.map((item) =>
+          item._id === id ? { ...item, count } : item
+        );
+
+        setCartItems(updated);
+        return updated;
+      });
+
+    } catch (err) {
+      console.log(err);
+    }
+
+  }
+
   useEffect(() => {
-    dispatch(fetchCartItems());
-  }, [dispatch]);
+    getCartItems();
+  }, []);
 
-  //  Subtotal calculation
+  // subtotal calculation
   useEffect(() => {
-    const total = items.reduce((item, ind) => {
-        return item + ind.productId.price * ind.count;
-      }, 0);
-    
+
+    const total = items.reduce(
+      (sum, item) => sum + (item.productId?.price || 0) * (item.count || 0),
+      0
+    );
+
     setSubtotal(total);
+
   }, [items, setSubtotal]);
 
   return (
     <Card sx={{ flex: 2, borderRadius: 4 }}>
       <CardContent>
+
         {items.map((item, index) => {
+
           const product = item.productId;
 
           return (
             <div key={item._id}>
+
               <CartItem
                 item={{
                   id: item._id,
-                  name: product.name,
-                  category: product.category,
-                  price: product.price,
-                  unit: product.unit,
-                  image: product.image,
-                  quantity: item.count,
+                  name: product?.name,
+                  category: product?.category,
+                  price: product?.price,
+                  unit: product?.unit,
+                  image: product?.image,
+                  quantity: item.count
                 }}
-                deleteItem={(id) => dispatch(deleteCartItem(id))}
-                updateQuantity={(id, count) =>
-                  dispatch(updateCartItem({ id, count }))
-                }
+                deleteItem={deleteItem}
+                updateQuantity={updateQuantity}
               />
 
               {index < items.length - 1 && (
                 <Divider sx={{ my: 2 }} />
               )}
+
             </div>
           );
+
         })}
+
       </CardContent>
     </Card>
   );
