@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Typography } from '@mui/material';
 import OrderCard from '../../customer/CustomerOrders/OrderCard';
 import OrderDetails from './OrderDetails';
 
@@ -9,7 +9,8 @@ function AdmminOrders() {
   const [orders, setorders] = useState([]);
 
   async function getOrders() {
-    let res = await axios.get(`${process.env.REACT_APP_BE_API_URL}/order/getAll`,
+    let res = await axios.get(
+      `${process.env.REACT_APP_BE_API_URL}/order/getAll`, 
       {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`
@@ -20,69 +21,95 @@ function AdmminOrders() {
   }
 
   let products = orders.map((order, ind) => {
-  let arr = order.products.map((item) => {
-    let totalPrice = item.productId.price * item.count;
+
+    // TOTAL CALCULATION
+    const totalAmount =
+      order.price ??
+      order.products.reduce(
+        (sum, item) =>
+          sum + (item.productId?.price || 0) * (item.count || 0),
+        0
+      );
+
+    let arr = order.products.map((item) => {
+
+      if (!item.productId) return null; 
+
+      let totalPrice = item.productId.price * item.count;
+
+      return (
+        <OrderCard
+          count={item.count}
+          category={item.productId.category}
+          image={item.productId.image}
+          name={item.productId.name}
+          price={item.productId.price}
+          units={item.productId.unit}
+          totalPrice={totalPrice}
+          key={item._id}
+        />
+      )
+    })
+
+    // DATE
+    const dateObj = new Date(order.createdAt || order.date);
+    const orderDate = dateObj.toLocaleDateString('en-IN');
+    const orderTime = dateObj.toLocaleTimeString('en-IN');
+
+    order.orderDate = orderDate;
+    order.orderTime = orderTime;
 
     return (
-      <OrderCard
-        count={item.count}
-        category={item.productId.category}
-        image={item.productId.image}
-        name={item.productId.name}
-        price={item.productId.price}
-        units={item.productId.unit}
-        totalPrice={totalPrice}
-        key={item._id}
-      />
-    )
-  })
+      <Grid item xs={12} key={ind}>
 
-  const dateObj = new Date(order.date);
+        {/*  PAYMENT DETAILS */}
+        {order.isCanceled ? (
+          <Typography color="error" fontWeight="600">
+            Payment not available (Order Cancelled)
+          </Typography>
+        ) : (
+          <Box>
+            <Typography>
+              Payment ID: {order.razorpay_payment_id || "N/A"}
+            </Typography>
 
-  const orderDate = dateObj.toLocaleDateString('en-IN');
-  const orderTime = dateObj.toLocaleTimeString('en-IN');
+            <Typography>
+              Order ID: {order.razorpay_order_id || "N/A"}
+            </Typography>
 
-  order.orderDate = orderDate;
-  order.orderTime = orderTime;
+            <Typography fontWeight="600">
+              Total: ₹ {totalAmount}
+            </Typography>
+          </Box>
+        )}
 
-  return (
-    <Grid item xs={12} key={ind}>
-      <OrderDetails order={order} arr={arr}/>
-    </Grid>
-  );
-});
+        <OrderDetails order={order} arr={arr}/>
+      </Grid>
+    );
+  });
+
   useEffect(() => {
     getOrders();
   }, []);
 
   return (
-
     <Box
       sx={{
         height: "75vh",
         overflowY: "auto",
         px: 2,
-
-        /* Hide Scrollbar */
-        scrollbarWidth: "none", 
+        scrollbarWidth: "none",
         msOverflowStyle: "none",
         "&::-webkit-scrollbar": {
           display: "none"
         }
       }}
     >
-
-      <Grid
-        container
-        spacing={2}
-        mt={2}
-      >
+      <Grid container spacing={2} mt={2}>
         {products}
       </Grid>
-
     </Box>
-
   )
 }
 
-export default AdmminOrders
+export default AdmminOrders;

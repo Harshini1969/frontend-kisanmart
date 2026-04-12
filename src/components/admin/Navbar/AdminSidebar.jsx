@@ -20,7 +20,7 @@ function AdminSidebar() {
     { id: 4, name: "Customers", icon: <PeopleOutlineIcon />, path: "/admin/customers" },
     { id: 5, name: "Promotions", icon: <LocalOfferOutlinedIcon /> },
     { id: 6, name: "Reports", icon: <AssessmentOutlinedIcon /> },
-    { id: 7, name: "Payments", icon: <PaymentsOutlinedIcon /> },
+    { id: 7, name: "Payments", icon: <PaymentsOutlinedIcon />, path: "/admin/payments"  },
   ];
 
   const [isMenuclose, setisMenuclose] = useState(false);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Header.module.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
@@ -11,22 +11,50 @@ import { useNavigate } from "react-router-dom";
 function Header({ search = "", setSearch, category, setCategory, cartCount = 0 }) {
 
   const [display, setdisplay] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
 
   function goToCart(){
     navigate("/customer/cart");
   }
 
+    function handleLogout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  }
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token) return;
+
+      try {
+        const res = await fetch("http://localhost:5000/customer/profile", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const data = await res.json();
+        setUser(data);
+      } catch (err) {
+        console.log("Error fetching user:", err);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
   return (
     <div className={styles.navbar}>
 
-      {/* LOGO */}
       <div className={styles.logoContainer}>
         <img src="/logo.png" alt="logo" className={styles.logo} />
         <h1>Kisan Mart</h1>
       </div>
 
-      {/* SEARCH */}
       <div style={{ display: "flex", gap: "10px" }}>
         <Select
           value={category}
@@ -57,7 +85,6 @@ function Header({ search = "", setSearch, category, setCategory, cartCount = 0 }
         />
       </div>
 
-      {/* CART */}
       <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
            
         <Badge badgeContent={cartCount} color="error">
@@ -71,34 +98,38 @@ function Header({ search = "", setSearch, category, setCategory, cartCount = 0 }
           />
         </Badge>
 
-        {/* Profile */}
         <div
           tabIndex="0"
           className={styles.nameContainer}
           onClick={() => setdisplay(true)}
           onBlur={() => setdisplay(false)}
         >
-          <div className={styles.circle}>H</div>
-          <p>Harshini</p>
+          <div className={styles.circle}>
+            {user?.name?.charAt(0) || "U"}
+          </div>
+          <p>{user?.name || "User"}</p>
           <KeyboardArrowDownIcon />
         </div>
       </div>
 
-      {/* Dropdown */}
       {display && (
         <div className={styles.dropdownContainer}>
           <div style={{ padding: "10px" }}>
-            <div>harshini@gmail.com</div>
-            <div>Customer</div>
+            <div>{user?.email || "No Email"}</div>
+            <div>{user?.role || "Customer"}</div>
           </div>
 
           <div className={styles.line}></div>
 
           <div className={styles.logoutContainer}>
             <PowerSettingsNewIcon sx={{ fontSize: "1.5rem" }} />
-            <Button className={styles.logoutBtn} sx={{ color: "#ed1f1c" }}>
-              Logout
-            </Button>
+             <Button
+                           className={styles.logoutBtn}
+                           sx={{ color: "#ed1f1c" }}
+                           onMouseDown={handleLogout}
+                         >
+                           Logout
+                         </Button>
           </div>
         </div>
       )}

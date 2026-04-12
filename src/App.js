@@ -14,6 +14,8 @@ import Cart from "./components/customer/Cart/Cart";
 import Orders from "./components/customer/CustomerOrders/Orders";
 import AdmminOrders from "./components/admin/adminorders/AdminOrders";
 import Customerdashboard from "./components/customer/customerDashboard/Customerdashboard";
+import CustomerPayments from "./components/customer/CustomerPayments";
+import AdminPayments from "./components/admin/AdminPayments";
 
 
 function App() {
@@ -31,7 +33,7 @@ function App() {
           <Route 
             path="/admin" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute role="admin">
                 <AdminDashboard />
               </ProtectedRoute>
             }
@@ -40,13 +42,14 @@ function App() {
             <Route path="customers" element={<Customers />} />
             <Route path="products" element={<Products />} />
              <Route path="order" element={<AdmminOrders />} />
+              <Route path="payments" element={<AdminPayments/>} />
           </Route>
 
           {/* CUSTOMER ROUTES */}
           <Route 
             path="/customer" 
             element={
-              <ProtectedRoute>
+              <ProtectedRoute role="customer">
                 <CustomerDashboard />
               </ProtectedRoute>
             }
@@ -55,8 +58,8 @@ function App() {
             <Route path="products" element={<CustomerProducts />} />
             <Route path="cart" element={<Cart />} />
              <Route path="orders" element={<Orders/>} />
-          </Route>
-
+             <Route path="payments" element={<CustomerPayments/>} />
+             </Route>
         </Routes>
       </BrowserRouter>
 

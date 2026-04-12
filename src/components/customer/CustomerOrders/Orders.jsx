@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from "react";
 import OrderCard from "./OrderCard";
 import axios from "axios";
-import { Typography,Box,Grid,Card,CardContent,Stepper,Step,StepLabel} from "@mui/material";
+import {
+  Typography, Box, Grid, Card, CardContent,
+  Stepper, Step, StepLabel
+} from "@mui/material";
 
 function Orders() {
 
   const [orders, setorders] = useState([]);
 
   const getOrderStatus = (order) => {
-    if (order.isCanceled) {
-      return { label: "Cancelled", color: "error.main", step: -1 };
-    }
-    if (order.isDelivered) {
-      return { label: "Delivered", color: "success.main", step: 3 };
-    }
-    if (order.isShipped) {
-      return { label: "Shipped", color: "primary.main", step: 2 };
-    }
-    if (order.isAccepted) {
-      return { label: "Accepted", color: "secondary.main", step: 1 };
-    }
+    if (order.isCanceled) return { label: "Cancelled", color: "error.main", step: -1 };
+    if (order.isDelivered) return { label: "Delivered", color: "success.main", step: 3 };
+    if (order.isShipped) return { label: "Shipped", color: "primary.main", step: 2 };
+    if (order.isAccepted) return { label: "Accepted", color: "secondary.main", step: 1 };
     return { label: "Pending", color: "warning.main", step: 0 };
   };
 
@@ -48,10 +43,21 @@ function Orders() {
   let products = orders.map((order) => {
 
     if (!order.products) return null;
+
     const { label: status, color, step } = getOrderStatus(order);
     const steps = ["Accepted", "Shipped", "Delivered"];
+
+    //  CALCULATE TOTAL SAFELY
+    const totalAmount =
+      order.price ??
+      order.products.reduce(
+        (sum, item) =>
+          sum + (item.productId?.price || 0) * (item.count || 0),
+        0
+      );
+
     let arr = order.products.map((item) => {
-      if (!item.productId) return null;
+
       let totalPrice =
         (item.productId?.price || 0) * (item.count || 0);
 
@@ -69,19 +75,14 @@ function Orders() {
       );
     });
 
-    const dateObj = new Date(order.date);
-
+    //   DATE
+    const dateObj = new Date(order.createdAt || order.date);
     const orderDate = dateObj.toLocaleDateString("en-IN");
     const orderTime = dateObj.toLocaleTimeString("en-IN");
 
     return (
       <Grid item xs={12} key={order._id}>
-        <Card
-          sx={{
-            borderRadius: 3,
-            boxShadow: 3
-          }}
-        >
+        <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
           <CardContent>
 
             {/* STEPPER */}
@@ -95,35 +96,39 @@ function Orders() {
               </Stepper>
             )}
 
-            {/*  DATE */}
-            <Typography
-              variant="subtitle2"
-              sx={{
-                display: "inline-block",
-                background: "#f1f1f1",
-                p: 1,
-                borderRadius: 2,
-                mb: 1
-              }}
-            >
+            {/* DATE */}
+            <Typography sx={{ background: "#f1f1f1", p: 1, borderRadius: 2, mb: 1 }}>
               {orderDate} | {orderTime}
             </Typography>
 
             {/* STATUS */}
-            <Typography
-              sx={{
-                fontWeight: "bold",
-                color: color,
-                mb: 2
-              }}
-            >
+            <Typography sx={{ fontWeight: "bold", color: color }}>
               Status: {status}
             </Typography>
 
+            {/*  PAYMENT DETAILS  */}
+            {order.isCanceled ? (
+              <Typography color="error" fontWeight="600">
+                Payment Failed (or) Order Cancelled
+              </Typography>
+            ) : (
+              <Box>
+                <Typography>
+                  Payment ID: {order.razorpay_payment_id || "N/A"}
+                </Typography>
+
+                <Typography>
+                  Order ID: {order.razorpay_order_id || "N/A"}
+                </Typography>
+
+                <Typography fontWeight="600">
+                  Total: ₹ {totalAmount}
+                </Typography>
+              </Box>
+            )}
+
             {/* PRODUCTS */}
-            <Box>
-              {arr}
-            </Box>
+            <Box>{arr}</Box>
 
           </CardContent>
         </Card>
@@ -132,24 +137,26 @@ function Orders() {
   });
 
   return (
-    <Box
-      sx={{
-        flex:1,
-        height: "78vh",
-        overflowY: "auto",
-        px: 3,
-        scrollbarWidth: "none",
+    
+  <Box
+    sx={{
+      flex: 1,
+      height: "78vh",
+      overflowY: "auto",
+      px: 3,
+      scrollbarWidth: "none",
         msOverflowStyle: "none",
         "&::-webkit-scrollbar": {
           display: "none"
-        }
-      }}
-    >
-      <Grid container spacing={3} mt={1}>
-        {products}
-      </Grid>
-    </Box>
-  );
+      }
+    }}
+  >
+    <Grid container spacing={3} mt={1}>
+      {products}
+    </Grid>
+  </Box>
+);
+  
 }
 
 export default Orders;

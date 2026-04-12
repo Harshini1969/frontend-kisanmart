@@ -9,7 +9,6 @@ import ReceiptLongOutlinedIcon from "@mui/icons-material/ReceiptLongOutlined";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import RequestQuoteOutlinedIcon from "@mui/icons-material/RequestQuoteOutlined";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -25,11 +24,10 @@ const menuData = [
   { id: 4, name: "Cart", icon: <ShoppingCartOutlinedIcon /> ,path:"/customer/cart"},
   { id: 5, name: "Wishlist", icon: <FavoriteBorderIcon /> },
   { id: 6, name: "Address", icon: <LocationOnOutlinedIcon /> },
-  { id: 7, name: "Payments", icon: <PaymentsOutlinedIcon /> },
+  { id: 7, name: "Payments", icon: <PaymentsOutlinedIcon /> ,path:"/customer/payments"},
   { id: 8, name: "Notifications", icon: <NotificationsNoneOutlinedIcon /> },
-  { id: 9, name: "Refund", icon: <RequestQuoteOutlinedIcon  /> },
-  { id: 10, name: "Help", icon: <HelpOutlineOutlinedIcon /> },
-  { id: 11, name: "Settings", icon: <SettingsOutlinedIcon /> },
+  { id: 9, name: "Help", icon: <HelpOutlineOutlinedIcon /> },
+  { id: 10, name: "Settings", icon: <SettingsOutlinedIcon /> },
 ];
   const [isMenuclose, setisMenuclose] = useState(false);
   const navigate = useNavigate();

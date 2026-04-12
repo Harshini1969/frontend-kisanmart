@@ -40,11 +40,11 @@ function Login() {
 
       if (decoded.role === "admin") 
         {
-          navigate("/admin")
+          navigate("/admin/dashboard")
         };
       if (decoded.role === "customer") 
         {
-          navigate("/customer");
+          navigate("/customer/dashboard");
           
         }
 

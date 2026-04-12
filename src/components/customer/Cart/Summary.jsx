@@ -29,6 +29,9 @@ function Summary({ subtotal, cartItems }) {
         currency: "INR",
         order_id: data.id,
 
+        //  ADDED 
+        description: `Total Amount: ₹ ${subtotal}`,
+
         handler: async function (response) {
 
           try {
@@ -44,7 +47,11 @@ function Summary({ subtotal, cartItems }) {
                 products: cartItems.map((item) => ({
                   productId: item.productId._id,
                   count: item.count
-                }))
+                })),
+
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                price: subtotal
 
               },
               {
@@ -54,7 +61,27 @@ function Summary({ subtotal, cartItems }) {
               }
             );
 
-            alert("Payment Successful & Order Placed");
+            //   show paid amount
+            alert(`Payment Successful! Amount Paid: ₹ ${subtotal}`);
+
+            //  CLEAR CART AFTER ORDER
+            await axios.delete(
+              `${process.env.REACT_APP_BE_API_URL}/cart/clear`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+              }
+            );
+
+            //  RESET FORM
+            setName("");
+            setPhone("");
+            setAddress("");
+            setPincode("");
+
+            //  OPTIONAL: REFRESH UI
+            window.location.reload();
 
           } catch (err) {
             console.log(err);
@@ -92,10 +119,10 @@ function Summary({ subtotal, cartItems }) {
         maxHeight: "70vh",
         overflowY: "auto",
         pr:2,
-         scrollbarWidth: "none",     
-          "&::-webkit-scrollbar": {
-            display: "none"
-          }
+        scrollbarWidth: "none",     
+        "&::-webkit-scrollbar": {
+          display: "none"
+        }
       }}
     >
 
@@ -119,10 +146,7 @@ function Summary({ subtotal, cartItems }) {
 
         <Box display="flex" flexDirection="column" gap="10px" mt={2} pb={4}>
 
-          <Typography fontWeight={600}>
-            Name
-          </Typography>
-
+          <Typography fontWeight={600}>Name</Typography>
           <TextField
             fullWidth
             size="small"
@@ -131,10 +155,7 @@ function Summary({ subtotal, cartItems }) {
             onChange={(e)=>setName(e.target.value)}
           />
 
-          <Typography fontWeight={600}>
-            Phone
-          </Typography>
-
+          <Typography fontWeight={600}>Phone</Typography>
           <TextField
             fullWidth
             size="small"
@@ -143,10 +164,7 @@ function Summary({ subtotal, cartItems }) {
             onChange={(e)=>setPhone(e.target.value)}
           />
 
-          <Typography fontWeight={600}>
-            Address
-          </Typography>
-
+          <Typography fontWeight={600}>Address</Typography>
           <TextField
             fullWidth
             size="small"
@@ -157,10 +175,7 @@ function Summary({ subtotal, cartItems }) {
             rows={3}
           />
 
-          <Typography fontWeight={600}>
-            Pincode
-          </Typography>
-
+          <Typography fontWeight={600}>Pincode</Typography>
           <TextField
             fullWidth
             size="small"
