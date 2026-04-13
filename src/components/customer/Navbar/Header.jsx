@@ -31,7 +31,7 @@ function Header({ search = "", setSearch, category, setCategory, cartCount = 0 }
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:5000/customer/profile", {
+        const res = await fetch(`${process.env.REACT_APP_BE_API_URL}/customer/profile`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
