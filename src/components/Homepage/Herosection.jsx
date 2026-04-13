@@ -7,7 +7,7 @@ function HeroSection() {
       sx={{
         position: "relative",
         width: "100%",
-        height: "80vh", 
+        height: "110vh", 
         backgroundImage: "url(/Hero.png)",
         backgroundSize: "cover",
         backgroundPosition: "center",
