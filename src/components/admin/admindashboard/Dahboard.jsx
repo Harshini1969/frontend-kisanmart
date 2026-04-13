@@ -5,18 +5,16 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import PaymentsOutlinedIcon from "@mui/icons-material/PaymentsOutlined";
-
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
-
-   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const cards = [
     {
       title: "Products",
       subtitle: "Manage your products",
-      icon: <Inventory2OutlinedIcon fontSize="medium" />,
+      icon: <Inventory2OutlinedIcon />,
       route: "/admin/products",
       color: "#2563eb",
       bg: "#e0edff",
@@ -24,7 +22,7 @@ function Dashboard() {
     {
       title: "Orders",
       subtitle: "Track all orders",
-      icon: <ShoppingCartOutlinedIcon fontSize="medium" />,
+      icon: <ShoppingCartOutlinedIcon />,
       route: "/admin/order",
       color: "#7c3aed",
       bg: "#f3e8ff",
@@ -32,69 +30,85 @@ function Dashboard() {
     {
       title: "Customers",
       subtitle: "View customer data",
-      icon: <PeopleOutlineIcon fontSize="medium" />,
-      route:"/admin/customers",
+      icon: <PeopleOutlineIcon />,
+      route: "/admin/customers",
       color: "#4f46e5",
       bg: "#eef2ff",
     },
     {
       title: "Reports",
       subtitle: "Analyze reports",
-      icon: <BarChartIcon fontSize="medium" />,
+      icon: <BarChartIcon />,
+      route: "/admin/reports",
       color: "#f59e0b",
       bg: "#fff7ed",
     },
     {
       title: "Payments",
-      subtitle: "check the Payments",
-      icon: <PaymentsOutlinedIcon fontSize="medium" />,
+      subtitle: "Check the payments",
+      icon: <PaymentsOutlinedIcon />,
+      route: "/admin/payments",
       color: "#10b981",
       bg: "#ecfdf5",
     },
   ];
 
   return (
-    <Box sx={{ p: 4}}>
-      
+    <Box
+      sx={{
+        p: { xs: 2, sm: 3, md: 4  },
+        height: "60vh",            
+        overflowY:  { xs: "auto", md: "visible" },           
+        overflowX: "hidden",
+        borderRadius: "20px",
+        scrollbarWidth: "none",
+        "&::-webkit-scrollbar": {
+          display: "none"
+        }
+      }}
+    >
       {/* Title */}
-      <Typography variant="h5" sx={{ fontWeight: 800, color: "#111827" }}>
+      <Typography variant="h4" sx={{ fontWeight: 800, color: "#0f172a" }}>
         Admin Dashboard
       </Typography>
 
-      <Typography variant="caption" sx={{ fontWeight: 600,color: "#6b7280" }}>
+      <Typography sx={{ fontWeight: 500, color: "#4b5563", mb: 3 }}>
         Kisan Mart
       </Typography>
 
       {/* Cards */}
-      <Grid container spacing={3} mt={2}>
+      <Grid container spacing={3}>
         {cards.map((card, index) => (
-          <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+          <Grid item xs={12} sm={6} md={4} lg={4} key={index}>
             <Card
+              onClick={() => navigate(card.route)}
               sx={{
-                borderRadius: 4,
-                boxShadow: "0 4px 12px rgba(0,0,0,0.06)",
-                height: "120px",              
+                borderRadius: 5,
+                background: "#f3f4f6",
+                boxShadow: "none",
                 display: "flex",
+                width:"240px",
                 alignItems: "center",
-                 cursor: "pointer",
+                p: 2,
+                cursor: "pointer",
               }}
-               onClick={() => navigate(card.route)}
             >
               <CardContent
                 sx={{
                   display: "flex",
                   alignItems: "center",
                   gap: 2,
-                  width: "100%",
+                  p: "8px !important"
                 }}
               >
                 {/* Icon */}
                 <Box
                   sx={{
-                    p: 1.8,           
-                    borderRadius: 3,
+                    p: 2,
+                    borderRadius: 4,
+                    background: card.bg,
                     color: card.color,
-                    display: "flex",
+                    display: "flex"
                   }}
                 >
                   {card.icon}
@@ -102,15 +116,11 @@ function Dashboard() {
 
                 {/* Text */}
                 <Box>
-                  <Typography
-                    sx={{ fontSize: 16, fontWeight: 600 }}
-                  >
+                  <Typography sx={{ fontSize: 18, fontWeight: 700 }}>
                     {card.title}
                   </Typography>
 
-                  <Typography
-                    sx={{ fontSize: 13, color: "#6b7280" }}
-                  >
+                  <Typography sx={{ fontSize: 14, color: "#6b7280" }}>
                     {card.subtitle}
                   </Typography>
                 </Box>

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import styles from './product.module.css'
 
@@ -11,8 +12,9 @@ function AddProduct({ addProduct, onClose }) {
     isOrganic: false
   })
 
-  function handleChange(event) {
+  const [file, setFile] = useState(null); 
 
+  function handleChange(event) {
     let value = event.target.value;
     let name = event.target.name;
     let type = event.target.type;
@@ -22,8 +24,7 @@ function AddProduct({ addProduct, onClose }) {
 
     if (type === "checkbox") {
       obj[name] = checked;
-    } 
-    else {
+    } else {
       obj[name] = value;
     }
 
@@ -31,7 +32,19 @@ function AddProduct({ addProduct, onClose }) {
   }
 
   function handleSubmit() {
-    addProduct(product)
+    const formData = new FormData();
+
+    formData.append("name", product.name);
+    formData.append("price", product.price);
+    formData.append("unit", product.unit);
+    formData.append("quantity", product.quantity);
+    formData.append("isOrganic", product.isOrganic);
+
+    if (file) {
+      formData.append("image", file); 
+    }
+
+    addProduct(formData);
 
     setProduct({
       name: "",
@@ -39,7 +52,9 @@ function AddProduct({ addProduct, onClose }) {
       unit: "",
       quantity: "",
       isOrganic: false
-    })
+    });
+
+    setFile(null);
   }
 
   return (
@@ -48,32 +63,16 @@ function AddProduct({ addProduct, onClose }) {
       <h2>Add Product</h2>
 
       <label>Name</label>
-      <input
-        name="name"
-        value={product.name}
-        onChange={handleChange}
-      />
+      <input name="name" value={product.name} onChange={handleChange} />
 
       <label>Price</label>
-      <input
-        name="price"
-        value={product.price}
-        onChange={handleChange}
-      />
+      <input name="price" value={product.price} onChange={handleChange} />
 
       <label>Unit</label>
-      <input
-        name="unit"
-        value={product.unit}
-        onChange={handleChange}
-      />
+      <input name="unit" value={product.unit} onChange={handleChange} />
 
       <label>Quantity</label>
-      <input
-        name="quantity"
-        value={product.quantity}
-        onChange={handleChange}
-      />
+      <input name="quantity" value={product.quantity} onChange={handleChange} />
 
       <label className={styles.checkRow}>
         <input
@@ -84,6 +83,17 @@ function AddProduct({ addProduct, onClose }) {
         />
         Organic
       </label>
+
+      <label>Image</label>
+      <input
+        type="file"
+        onChange={(e) => setFile(e.target.files[0])}
+      />
+
+      
+      {file && (
+        <img src={URL.createObjectURL(file)} width="100" alt="preview" />
+      )}
 
       <div className={styles.addButtons}>
         <button
@@ -107,4 +117,4 @@ function AddProduct({ addProduct, onClose }) {
   )
 }
 
-export default AddProduct
+export default AddProduct;

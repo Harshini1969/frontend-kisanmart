@@ -4,11 +4,10 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { TextField, InputAdornment, Select, MenuItem } from "@mui/material";
+import { TextField,InputAdornment,Select,MenuItem,Box} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
 function Header({ search = "", setSearch, category, setCategory }) {
-
   const [display, setdisplay] = useState(false);
   const navigate = useNavigate();
 
@@ -19,22 +18,37 @@ function Header({ search = "", setSearch, category, setCategory }) {
   }
 
   return (
-    <div className={styles.navbar}>
-
-      {/* LEFT */}
+    <div
+      className={styles.navbar}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "10px"
+      }}
+    >
+     
       <div className={styles.logoContainer}>
         <img src="/logo.png" alt="" className={styles.logo} />
         <h1>Kisan Mart</h1>
       </div>
 
-      {/*  SEARCH ADDED */}
-      <div style={{ display: "flex", gap: "10px" }}>
-        
+      <Box
+        sx={{
+          display: "flex",
+          gap: 1,
+          alignItems: "center",
+          width: { xs: "60%", sm: "50%", md: "40%" } 
+        }}
+      >
         <Select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
           size="small"
-          sx={{ width: "150px" }}
+          sx={{
+            display: { xs: "none", md: "block" },
+            minWidth: "110px"
+          }}
         >
           <MenuItem value="All">All</MenuItem>
           <MenuItem value="Fruits">Fruits</MenuItem>
@@ -44,30 +58,42 @@ function Header({ search = "", setSearch, category, setCategory }) {
         </Select>
 
         <TextField
-          placeholder="Search products..."
+          placeholder="Search..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           size="small"
-          sx={{ width: "300px" }}
+          fullWidth
+          sx={{
+            background: "white",
+            borderRadius: "20px",
+            "& .MuiInputBase-root": {
+              height: "34px",
+              fontSize: "14px"
+            }
+          }}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
-                <SearchIcon />
+                <SearchIcon sx={{ fontSize: "16px" }} />
               </InputAdornment>
             )
           }}
         />
-      </div>
+      </Box>
 
-      {/* RIGHT */}
       <div
         tabIndex="0"
         className={styles.nameContainer}
         onClick={() => setdisplay(true)}
         onBlur={() => setdisplay(false)}
+        style={{ display: "flex", alignItems: "center", gap: "5px" }}
       >
         <div className={styles.circle}>A</div>
-        <p>Admin</p>
+
+        <Box sx={{ display: { xs: "none", sm: "block" } }}>
+          <p>Admin</p>
+        </Box>
+
         <KeyboardArrowDownIcon />
       </div>
 
@@ -93,7 +119,6 @@ function Header({ search = "", setSearch, category, setCategory }) {
           </div>
         </div>
       )}
-
     </div>
   );
 }

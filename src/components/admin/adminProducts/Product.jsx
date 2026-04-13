@@ -39,25 +39,51 @@ function Products() {
     }
   }
 
-  // DELETE
-  async function deleteProduct(id) {
-    try {
-      await axios.delete(`${API}/delete/${id}`);
-      fetchProducts();
-    } catch (err) {
-      console.log(err);
-    }
-  }
+// DELETE
+async function deleteProduct(id) {
+  try {
+    const token = localStorage.getItem("token");
 
-  // ADD
-  async function addProduct(newProduct) {
-    try {
-      await axios.post(`${API}/add`, newProduct);
-      fetchProducts();
-    } catch (err) {
-      console.log(err);
-    }
+    await axios.delete(
+      `${API}/delete/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    fetchProducts();
+  } catch (err) {
+    console.log(err);
   }
+}
+  // ADD
+  // async function addProduct(newProduct) {
+  //   try {
+  //     await axios.post(`${API}/add`, newProduct);
+  //     fetchProducts();
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  async function addProduct(newProduct) {
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.post(`${API}/add`, newProduct, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data"
+      }
+    });
+
+    fetchProducts();
+  } catch (err) {
+    console.log(err);
+  }
+}
 
   // FILTER
   const filteredProducts = products.filter((item) => {

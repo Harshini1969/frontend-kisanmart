@@ -4,7 +4,6 @@ import Summary from "./Summary";
 import { useState } from "react";
 
 function Cart() {
-
   const [subtotal, setSubtotal] = useState(0);
   const [cartItems, setCartItems] = useState([]);
 
@@ -15,22 +14,39 @@ function Cart() {
       </Typography>
 
       <Box
-        display="flex"
-        flexDirection="row"
-        gap="10px"
-        alignItems="flex-start"
+        sx={{
+          height:{ md: "65vh", xs: "auto" },
+          display: "flex",
+          gap: 2,
+           overflow: "hidden",
+          flexDirection: {
+            xs: "column",   
+            md: "row",   
+          },
+
+          alignItems: "stretch",
+        }}
       >
-        <CartItems
-          setSubtotal={setSubtotal}
-          setCartItems={setCartItems}
-        />
-
-        <Summary
-          subtotal={subtotal}
-          cartItems={cartItems}
-        />
+        {/*  Cart Items */}
+        <Box sx={{ flex: 2 }}>
+          <CartItems
+            setSubtotal={setSubtotal}
+            setCartItems={setCartItems}
+          />
+        </Box>
+     {/* summary */}
+        <Box
+          sx={{
+            flex: 1,
+            mt: { xs: 2, md: 0 },
+          }}
+        >
+          <Summary
+            subtotal={subtotal}
+            cartItems={cartItems}
+          />
+        </Box>
       </Box>
-
     </Box>
   );
 }
